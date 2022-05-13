@@ -32,6 +32,7 @@
 
     {{-- Mengecek apakah ada posts atau tidak --}}
     @if  ( $posts->count() )
+        {{-- Hero Card Post --}}
         <div class="card mb-3 text-center">
             {{-- Apabila ada gambar di table post --}}
             @if ( $posts[0]->image )

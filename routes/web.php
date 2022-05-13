@@ -27,6 +27,8 @@ use App\Http\Controllers\DashboardPostController;
 // Memanggil controller AdminCategoryController.php
 use App\Http\Controllers\AdminCategoryController;
 
+// Memanggil controller HomeController.php
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,12 +42,8 @@ use App\Http\Controllers\AdminCategoryController;
 */
 
 // Route untuk halaman home
-Route::get('/', function () {
-    return view('home', [           // Akan memanggil file view home.blade.php di folder resources/views
-        "title" => 'Home',          // Akan mengirimkan data ke file view dan disimpan sebagai variabel title
-        'active' => 'home'          // Akan mengirimkan active ke file view dan disimpan sebagai variabel active
-    ]); 
-});
+Route::get('/', [HomeController::class, 'index']);
+
 
 
 // Route untuk halaman about
