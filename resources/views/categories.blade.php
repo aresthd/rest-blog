@@ -8,7 +8,6 @@
 
     <div class="container">
         <div class="row">
-            {{-- Melakukan looping untuk setiap category yg diterima dari route web --}}
             @foreach ($categories as $category)
                 <div class="col-md-4">
                     {{-- Mengirim slug dari suatu category melalui url --}}
