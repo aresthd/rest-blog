@@ -10,6 +10,7 @@
         font-weight: 400;
         font-size: 5em;
         line-height: 111px;
+        text-shadow: 1px 2px 2px rgba(0,0,0,0.15);
         color: #000000;">
             Blog
         </h1>
@@ -31,18 +32,20 @@
     <div class="container">
 
         {{-- Sub Heading Lastest Post --}}
-        <div class="row my-5">
-            <div class="d-flex justify-content-between align-items-center border-top border-bottom border-4 py-2">
+        <div class="row my-5 border-top border-bottom border-4 py-2 d-flex align-items-center">
+            <div class="col-auto me-auto">
                 <p class="h1 text-uppercase" style="font-family: 'Montserrat';
                 font-style: normal;
                 font-weight: 600;
                 font-size: 2.5em;
                 line-height: 49px;
                 letter-spacing: -0.015em;
+                text-shadow: 1px 2px 2px rgba(0,0,0,0.15);
                 color: #202020;">
                     The lastest articles
                 </p>
-
+            </div>
+            <div class="col-auto">
                 {{-- Link view all posts --}}
                 <a class="link-secondary" href="" style="font-family: 'Montserrat';
                 font-style: normal;
@@ -53,7 +56,6 @@
                 color: #7A7B7A;">
                     View all
                 </a>
-
             </div>
         </div>
 
@@ -410,5 +412,6 @@
         {{ $posts->links() }}
     </div>
 
-    
+    @include('partials.footer')
+
 @endsection

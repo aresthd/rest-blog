@@ -25,7 +25,7 @@
 					line-height: 59px;
 					letter-spacing: -0.015em;
 					text-transform: uppercase;
-					
+					text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
 					color: #202020;
 					">
 						write your own blog

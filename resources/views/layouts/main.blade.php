@@ -31,7 +31,6 @@
     </div>
 
 
-    @include('partials.footer')
       
 
     {{-- Bootstrap Js --}}
