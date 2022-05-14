@@ -44,6 +44,7 @@ class PostController extends Controller
             "title" => 'All Posts' . $title,        // Akan mengirimkan data title ke file view dan disimpan sebagai variabel title
             // 'posts' => Post::all()               // Mengambil semua data post dari model Post.php lalu mengirimkannya ke file view dan disimpan sebagai variabel posts
             'active' => 'posts',                    // Akan mengirimkan active ke file view dan disimpan sebagai variabel active
+            'categories' => Category::all(),        // Mengirimkan semua data post dari setiap category dan disimpan sebagai variabel categories
             
             // Melakukan eager loading untuk kolom author dan category di tabel posts
             'posts' =>  Post::latest()->filter(request(['search', 'category', 'author']))       // Mengambil semua data post terbaru dan memfilternya sesuai dengan search dari model Post.php lalu mengirimkannya ke file view dan disimpan sebagai variabel posts
@@ -60,5 +61,16 @@ class PostController extends Controller
             'active' => 'posts',            // Akan mengirimkan active ke file view dan disimpan sebagai variabel active
             'post' => $post                 // Mengirimkan data post ke file view dan disimpan sebagai variabel post
         ]);
+    }
+
+
+    // Method untuk menampilkan posts sesuai category
+    public function category(Category $categories) {
+        // Akan memanggil file view category.blade.php di folder resources/views
+        return view('categories', [           
+            "title" => 'Post Categories',           // Mengirimkan data title ke file view dan disimpan sebagai variabel title
+            'active' => 'categories',               // Akan mengirimkan active ke file view dan disimpan sebagai variabel active
+            'categories' => Category::all()         // Mengirimkan semua data post dari setiap category dan disimpan sebagai variabel categories
+        ]); 
     }
 }
