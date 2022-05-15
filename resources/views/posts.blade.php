@@ -224,9 +224,9 @@
                 {{ $posts->links() }}
             </div>
             
-            
+
             {{-- Show More --}}
-            <div class="row my-5 mx-1">
+            <div class="row my-5 mx-1 d-none">
                 {{-- <button class="see-more" data-page="2" data-link="localhost:8000/post?page=" data-div="#posts">See more</button>  --}}
                 <button type="button" id="load-more" class="btn btn-outline-dark p-2" data-page="2" data-link="/posts?page=" data-div="#posts">Show more</button>
                 {{-- <a wire:click="load" class="btn btn-outline-dark p-2" data-page="2" data-link="/posts?page=" data-div="#posts">Show more</a> --}}
