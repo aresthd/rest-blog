@@ -179,7 +179,7 @@
                         font-size: 1em;
                         line-height: 10px;
                         color: #546463;">
-                            —By <a href="/posts?author={{ $lastPost->author->username }}#categories" class="text-decoration-none link-secondary">{{ $lastPost->author->name }} </a>
+                            —By <a href="/posts?author={{ $post->author->username }}#categories" class="text-decoration-none link-secondary">{{ $post->author->name }} </a>
                         </p>
                         
                         <p class="h2 mt-4" style="font-family: 'Vollkorn', serif;

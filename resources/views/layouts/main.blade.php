@@ -27,7 +27,7 @@
 		{{-- Memanggil file navbar.blade.php di folder partials --}}
 		@include('partials.navbar')
 		
-		<div class="container mt-5">
+		<div class="container my-5">
 			@yield('container')                {{-- Akan berisi apapun yg ada di halaman-halaman child-nya yg memiliki section container--}}
 		</div>
 
