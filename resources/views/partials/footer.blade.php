@@ -31,7 +31,7 @@
 						write your own blog
 					</span>
 					<div class="d-grid gap-1 col-1 mx-auto mt-4">
-						<a class="btn btn-dark" href="#" role="button">Login</a>
+						<a class="btn btn-dark" href="/login" role="button">Login</a>
 					</div>
 				</div>
 			</div>
@@ -54,17 +54,17 @@
 				
 			<div class="col-md-2 ms-auto">
 				<ul class="nav flex-column d-flex justify-content-center">
-					<li class="nav-item my-2"><a href="#" class="nav-link p-0 link-secondary">Blog</a></li>
-					<li class="nav-item my-2"><a href="#" class="nav-link p-0 link-secondary">Home</a></li>
-					<li class="nav-item my-2"><a href="#" class="nav-link p-0 link-secondary">About</a></li>
+					<li class="nav-item my-2"><a href="/posts" class="nav-link p-0 link-secondary">Blog</a></li>
+					<li class="nav-item my-2"><a href="/" class="nav-link p-0 link-secondary">Home</a></li>
+					<li class="nav-item my-2"><a href="/about" class="nav-link p-0 link-secondary">About</a></li>
 				</ul>
 			</div>
 		
 			<div class="col-md-1 me-0">
 				<ul class="nav flex-column d-flex justify-content-center">
-					<li class="nav-item my-2"><a href="#" class="nav-link p-0 text-muted"><span data-feather="instagram"></span></a></li>
-					<li class="nav-item my-2"><a href="#" class="nav-link p-0 text-muted"><span data-feather="facebook"></span></a></li>
-					<li class="nav-item my-2"><a href="#" class="nav-link p-0 text-muted"><span data-feather="twitter"></span></a></li>
+					<li class="nav-item my-2"><a href="https://instagram.com/acilrestu12" class="nav-link p-0 text-secondary"><span data-feather="instagram"></span></a></li>
+					<li class="nav-item my-2"><a href="https://www.facebook.com/AcilRestu12" class="nav-link p-0 text-secondary"><span data-feather="facebook"></span></a></li>
+					<li class="nav-item my-2"><a href="https://twitter.com/EvoryRest" class="nav-link p-0 text-secondary"><span data-feather="twitter"></span></a></li>
 				</ul>
 			</div>
 	
