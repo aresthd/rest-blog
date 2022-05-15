@@ -61,11 +61,14 @@ Route::get('/about', function () {
 // Memanggil method index di controller PostController apabila url-nya /posts
 Route::get('/posts', [PostController::class, 'index']);
 
+// Memanggil method index di controller PostController apabila url-nya /posts/livewire
+// Route::get('/posts/livewire', [PostController::class, 'livewire']);
+
 // Memanggil method show di controller PostController apabila url-nya /posts/slug dan mengirimkan satu instance penuh dari salah satu post
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
 
 // Memanggil method show di controller PostController apabila url-nya /posts/category 
-Route::get('posts/{post:category}', [PostController::class, 'category']);
+// Route::get('posts/{post:category}', [PostController::class, 'category']);
 
 
 // Route untuk halaman categories apabila url-nya /categories
