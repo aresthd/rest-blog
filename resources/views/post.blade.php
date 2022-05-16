@@ -12,7 +12,7 @@
                 <h1 class="mb-3">{{ $post->title }}</h1>
                 
                 {{-- Menampilkan author / user dan kategori dari post yg ditampilkan --}}
-                <p>By. <a href="/posts?author={{ $post->author->username }}" class="text-decoration-none"> {{ $post->author->name }} </a> in <a href="/posts?category={{ $post->category->slug }}" class="text-decoration-none">{{ $post->category->name }}</a></p>
+                <p>By. <a href="/posts?author={{ $post->author->username }}#categories" class="text-decoration-none"> {{ $post->author->name }} </a> in <a href="/posts?category={{ $post->category->slug }}#categories" class="text-decoration-none">{{ $post->category->name }}</a></p>
                 
                 {{-- Apabila ada gambar di table post --}}
                 @if ( $post->image )

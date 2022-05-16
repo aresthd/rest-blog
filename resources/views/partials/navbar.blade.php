@@ -3,14 +3,14 @@
         <a class="navbar-brand" href="/" style="font-family: 'Seaweed Script', cursive;
         font-style: normal;
         font-weight: 400;
-        font-size: 2em;
+        font-size: 2.25em;
         line-height: 43px;
         color: #000000;
         text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.15);">
             Rest Blog
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto" style="font-family: 'Montserrat';
@@ -29,9 +29,6 @@
                 <li class="nav-item mx-4">
                     <a class="nav-link {{ ($active === "about") ? 'active' : '' }}" href="/about">About</a>
                 </li>
-                {{-- <li class="nav-item mx-4">
-                    <a class="nav-link {{ ($active === "categories") ? 'active' : '' }}" href="/categories">Categories</a>
-                </li> --}}
             </ul>
 
             
