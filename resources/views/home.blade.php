@@ -82,7 +82,7 @@
                             color: #546463;"> 
                                 <span>{{ $heroPost->created_at->diffForHumans() }}</span>
                                 <span class="text-uppercase ms-auto">
-                                    —By <a href="/posts?author={{ $heroPost->author->username }}#categories" class="text-decoration-none link-secondary">{{ $heroPost->author->name }} 
+                                    —By <a href="/posts?author={{ $heroPost->author->username }}#categories" class="text-decoration-none link-secondary">{{ $heroPost->author->name }} </a>
                                 </span>
                             </p>
                             
@@ -113,26 +113,30 @@
         <div class="container">
             {{-- Sub Heading Lastest Post --}}
             <div class="row my-5 border-top border-bottom border-4 py-2 d-flex align-items-center">
-                <p class="h1 text-uppercase" style="font-family: 'Montserrat';
-                font-style: normal;
-                font-weight: 600;
-                font-size: 2.5em;
-                line-height: 49px;
-                letter-spacing: -0.015em;
-                text-shadow: 1px 2px 2px rgba(0,0,0,0.15);
-                color: #202020;">
-                    The lastest articles
-                </p>
-                {{-- Link view all posts --}}
-                <a class="link-secondary" href="/posts#categories" style="font-family: 'Montserrat';
-                font-style: normal;
-                font-weight: 300;
-                font-size: 1em;
-                line-height: 17px;
-                letter-spacing: -0.015em;                
-                color: #7A7B7A;">
-                    View all
-                </a>
+                <div class="col-auto me-auto">
+                    <p class="h1 text-uppercase" style="font-family: 'Montserrat';
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 2.5em;
+                    line-height: 49px;
+                    letter-spacing: -0.015em;
+                    text-shadow: 1px 2px 2px rgba(0,0,0,0.15);
+                    color: #202020;">
+                        The lastest articles
+                    </p>
+                </div>
+                <div class="col-auto">
+                    {{-- Link view all posts --}}
+                    <a class="link-secondary" href="/posts#categories" style="font-family: 'Montserrat';
+                    font-style: normal;
+                    font-weight: 300;
+                    font-size: 1em;
+                    line-height: 17px;
+                    letter-spacing: -0.015em;                
+                    color: #7A7B7A;">
+                        View all
+                    </a>
+                </div>
             </div>
 
             {{-- Posts of Lastest Post --}}
