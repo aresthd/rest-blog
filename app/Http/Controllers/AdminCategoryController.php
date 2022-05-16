@@ -30,9 +30,13 @@ class AdminCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    //  Method untuk menampilkan halaman tambah category
     public function create()
     {
-        //
+        return view('dashboard.categories.create', [
+            'categories' => Category::all()        // Mengambil semua data category 
+        ]);
     }
 
     /**
@@ -41,9 +45,22 @@ class AdminCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    // Method untuk menjalankan fungsi tambah category
     public function store(Request $request)
     {
-        //
+        // Melakukan validasi data untuk setiap data request
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'slug' => 'required|unique:categories',
+        ]);
+        
+        // Memasukkan data post ke tabel categories 
+        Category::create($validatedData);
+        
+        // Mengirim flash message dan meredirect url ke halaman /dashboard/categories
+        return redirect('/dashboard/categories')->with('success', 'New category has been added!');
+        
     }
 
     /**
