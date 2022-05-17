@@ -6,7 +6,7 @@
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         {{-- Mengambil data user yg sudah login / authentication --}}
-        <h1 class="h2">Edit Posts</h1>
+        <h1 class="h2">Edit Post</h1>
 
     </div>
 
@@ -86,7 +86,7 @@
                 <trix-editor input="body"></trix-editor>
             </div>
             {{-- Tombol submit --}}
-            <button type="submit" class="btn btn-primary">Update Post</button>
+            <button type="submit" class="btn btn-dark">Update Post</button>
         </form>
     </div>
 

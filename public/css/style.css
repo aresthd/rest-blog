@@ -1,3 +1,14 @@
+.my-primary{
+    color: rgb(0, 245, 29) ;
+    background-color: red;
+}
+  
+.my-primary:focus, .my-primary:hover{
+    color: yellow ;
+    background-color: darkRed;
+}
+
+
 .form-signin .form-floating:focus-within {
     z-index: 2;
 }

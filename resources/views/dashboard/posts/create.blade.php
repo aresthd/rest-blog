@@ -76,7 +76,7 @@
                 <trix-editor input="body"></trix-editor>
             </div>
             {{-- Tombol submit --}}
-            <button type="submit" class="btn btn-primary">Create Post</button>
+            <button type="submit" class="btn btn-dark">Create Post</button>
         </form>
     </div>
 

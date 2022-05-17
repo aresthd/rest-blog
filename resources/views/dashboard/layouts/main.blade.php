@@ -24,7 +24,16 @@
         {{-- Feather Icon --}}
         <script src="https://unpkg.com/feather-icons"></script>
 
+        {{-- Font Awesome --}}
+        <script src="https://kit.fontawesome.com/a0aef73b98.js" crossorigin="anonymous"></script>
 
+        {{-- Font --}}
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Cantarell&family=Seaweed+Script&family=Vollkorn:wght@500&display=swap" rel="stylesheet">
+
+		
+        
     </head> 
     <body>
     
