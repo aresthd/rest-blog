@@ -5,6 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
+
+use \Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+
+
+
 class AdminCategoryController extends Controller
 {
     /**
@@ -82,7 +89,10 @@ class AdminCategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        // Memanggil file view dashboard/categories/edit.blade.php
+        return view('dashboard.categories.edit', [
+            'category' => $category,                    // Mengirimkan data category
+        ]);   
     }
 
     /**
@@ -94,7 +104,25 @@ class AdminCategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        // Menyatakan aturan-aturan untuk data request yg baru
+        $rules = [
+            'name' => 'required|max:255',
+        ];
+
+        // Apabila slug yg baru dari variabel $request berbeda dengan slug yg lama dari variabel $post
+        if ( $request->slug != $category->slug ) {
+            $rules['slug'] = 'required|unique:categories';
+        }
+
+        // Melakukan validasi data untuk setiap data request agar sesuai dengan rules
+        $validatedData = $request->validate($rules);
+
+        // Mengupdate data post di tabel categories berdasarkan id tertentu
+        Category::where('id', $category->id)->update($validatedData);
+
+        // Mengirim flash message dan meredirect url ke halaman /dashboard/categories
+        return redirect('/dashboard/categories')->with('success', 'Category has been updated!');
+        
     }
 
     /**
@@ -103,8 +131,29 @@ class AdminCategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
+
+    // Method untuk menghapus data category
     public function destroy(Category $category)
     {
-        //
+        // Menghapus data category berdasarkan id tertentu
+        Category::destroy($category->id);
+
+        // Mengirim flash message dan meredirect url ke halaman /dashboard/categories
+        return redirect('/dashboard/categories')->with('success', 'Category has been deleted!');
+        
     }
+
+
+    // Method untuk menangani ketika ada perminataan slug
+    public function checkSlug(Request $request) {
+
+        // Membuat slug dari title yg diambil dari request url
+        $slug = SlugService::createSlug(Category::class, 'slug', $request->title);
+
+        // Mereturn slug sebagai response dalam bentuk json
+        return response()->json(['slug' => $slug]);
+        
+    }
+    
+    
 }

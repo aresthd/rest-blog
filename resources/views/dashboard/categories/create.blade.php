@@ -15,12 +15,12 @@
         <form method="POST" action="/dashboard/categories" class="mb-5" enctype="multipart/form-data">       {{-- enctype ~> Berfungsi agar dapat mengupload file --}}
             {{-- Mengirimkan token csrf agar tidak dibajak --}}
             @csrf
-            {{-- Input untuk title --}}
+            {{-- Input untuk name --}}
             <div class="mb-3">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" required autofocus value="{{ old('title') }}">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" required autofocus value="{{ old('name') }}">
                 {{-- Apabila terjadi error untuk input title --}}
-                @error('title')
+                @error('name')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>

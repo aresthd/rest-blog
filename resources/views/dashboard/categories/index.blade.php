@@ -17,29 +17,29 @@
     
     <div class="table-responsive col-lg-6">
         {{-- Tombol untuk menambah data category --}}
-        <a href="/dashboard/categories/create" class="btn btn-primary mb-3">Create new category</a>
-        <table class="table table-striped table-sm">
-          <thead>
+        <a href="/dashboard/categories/create" class="btn btn-dark m-1">Create new category</a>
+        <table class="table table-striped table-sm mt-3">
+        <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Category Name</th>
                     <th scope="col">Action</th>
                 </tr>
-          </thead>
-          <tbody>
-              @foreach ($categories as $category)
+        </thead>
+        <tbody>
+            @foreach ($categories as $category)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $category->name }}</td>
                     <td>
                         {{-- Tombol untuk melihat detail dari category yang mengirimkan data slug dari category lewat url --}}
-                        <a href="/dashboard/categories/{{ $category->slug }}" class="badge bg-info"><span data-feather="eye"></span></a>
+                        <a href="/posts?category={{ $category->slug }}#categories" class="badge bg-info"><span data-feather="eye"></span></a>
 
                         {{-- Tombol untuk mengedit data category yg datanya akan dikirim ke controller AdminCategoryController.php dan mengirim slug lewat url  --}}
-                        <a href="/dashboard/categories/{{ $category->slug }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
+                        <a href="/dashboard/categories/{{ $category->id }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
                                 
                         {{-- Form untuk menghapus category yg datanya akan dikirim ke controller AdminCategoryController.php --}}
-                        <form action="/dashboard/categories/{{ $category->slug }}" method="post" class="d-inline">
+                        <form action="/dashboard/categories/{{ $category->id }}" method="post" class="d-inline">
                             {{-- Mengubah method dari form dari POST menjadi delete --}}
                             @method('delete')
                             {{-- Mengirimkan token csrf agar tidak dibajak --}}
@@ -49,9 +49,9 @@
                         </form>
                     </td>
                 </tr>
-              @endforeach
-          </tbody>
+            @endforeach
+        </tbody>
         </table>
-      </div>
+    </div>
 
 @endsection
