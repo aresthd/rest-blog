@@ -12,7 +12,7 @@
     @if (session()->has('success'))
         <div class="alert alert-success col-lg-6" role="alert">
             {{ session('success') }}
-        </div>
+        </div>  
     @endif
     
     <div class="table-responsive col-lg-6">
