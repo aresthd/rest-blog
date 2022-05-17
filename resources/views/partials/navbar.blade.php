@@ -1,28 +1,45 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-danger mb-5">
+<nav class="navbar navbar-expand-lg navbar-light mb-6 mt-3">
     <div class="container">
-        <a class="navbar-brand" href="/">Rest Blog</a>
+        <a class="navbar-brand" href="/" style="font-family: 'Seaweed Script', cursive;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 2.25em;
+        line-height: 43px;
+        color: #000000;
+        text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.15);">
+            Rest Blog
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link {{ ($active === "home") ? 'active' : '' }}" href="/">Home</a>
+            <ul class="navbar-nav ms-auto" style="font-family: 'Montserrat';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 1.125em;
+            line-height: 18px;
+            letter-spacing: -0.015em;
+            text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);">
+                <li class="nav-item mx-4">
+                    <a class="nav-link {{ ($active === "home") ? 'active' : '' }}" href="/" style="">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ ($active === "about") ? 'active' : '' }}" href="/about">About</a>
-                </li>
-                <li class="nav-item">
+                <li class="nav-item mx-4">
                     <a class="nav-link {{ ($active === "posts") ? 'active' : '' }}" href="/posts">Blog</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ ($active === "categories") ? 'active' : '' }}" href="/categories">Categories</a>
+                <li class="nav-item mx-4">
+                    <a class="nav-link {{ ($active === "about") ? 'active' : '' }}" href="/about">About</a>
                 </li>
             </ul>
 
             
             
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto" style="font-family: 'Montserrat';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 1.125em;
+            line-height: 18px;
+            letter-spacing: -0.015em;
+            text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);">
                 {{-- Apabila sudah melakukan login / authentication --}}
                 @auth           
                     <li class="nav-item dropdown">
