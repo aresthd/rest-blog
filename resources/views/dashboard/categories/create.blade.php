@@ -1,26 +1,26 @@
- {{-- Memanggil file view di views/dashboard/layouts/main.blade.php --}}
+{{-- Memanggil file view di views/dashboard/layouts/main.blade.php --}}
 @extends('dashboard.layouts.main')
 
-
 @section('container')
-
+    {{-- Heading --}}
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         {{-- Mengambil data user yg sudah login / authentication --}}
-        <h1 class="h2">Create New Posts</h1>
+        <h1 class="h2">Create New Category</h1>
 
     </div>
 
+    {{-- Form Create Category --}}
     <div class="col-lg-8">
-        {{-- Form untuk menambah data post yg datanya akan dikirim ke route /dashboard/posts dengan metode post dan akan diterima oleh method store di controller DashboardPostControlller.php --}}
-        <form method="POST" action="/dashboard/posts" class="mb-5" enctype="multipart/form-data">       {{-- enctype ~> Berfungsi agar dapat mengupload file --}}
+        {{-- Form untuk menambah data post yg datanya akan dikirim ke route /dashboard/categories dengan metode post dan akan diterima oleh method store di controller DashboardPostControlller.php --}}
+        <form method="POST" action="/dashboard/categories" class="mb-5" enctype="multipart/form-data">       {{-- enctype ~> Berfungsi agar dapat mengupload file --}}
             {{-- Mengirimkan token csrf agar tidak dibajak --}}
             @csrf
-            {{-- Input untuk title --}}
+            {{-- Input untuk name --}}
             <div class="mb-3">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" required autofocus value="{{ old('title') }}">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" required autofocus value="{{ old('name') }}">
                 {{-- Apabila terjadi error untuk input title --}}
-                @error('title')
+                @error('name')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
@@ -37,46 +37,8 @@
                     </div>
                 @enderror
             </div>
-            {{-- Input untuk category --}}
-            <div class="mb-3">
-                <label for="category" class="form-label">Category</label>
-                <select class="form-select" name="category_id">
-                    @foreach ($categories as $category)
-                        {{-- Apabila sudah memilih category sebelumnya --}}
-                        @if ( old('category_id') == $category->id )
-                            <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
-                        {{-- Apabila sebelumnya belum memilih category --}}
-                        @else
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endif
-                    @endforeach
-                </select>
-            </div>
-            {{-- Input untuk gambar --}}
-            <div class="mb-3">
-                <label for="image" class="form-label">Post Image</label>
-                {{-- Image preview apabila ada perubahan untuk input gambar --}}
-                <img class="img-preview img-fluid mb-3 col-sm-5">
-                <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image" onchange="previewImage()">     {{-- Apabila ada perubahan untuk input gambar maka akan memanggil function preview Image --}}
-                {{-- Apabila terjadi error untuk input image --}}
-                @error('image')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-            {{-- Input untuk body --}}
-            <div class="mb-3">
-                <label for="body" class="form-label">Body</label>
-                {{-- Apabila terjadi error untuk input body --}}
-                @error('body')
-                    <p class="text-danger">{{ $message }}</p>
-                @enderror
-                <input id="body" type="hidden" name="body" value="{{ old('body') }}">
-                <trix-editor input="body"></trix-editor>
-            </div>
             {{-- Tombol submit --}}
-            <button type="submit" class="btn btn-dark">Create Post</button>
+            <button type="submit" class="btn btn-dark mt-2">Create Category</button>
         </form>
     </div>
 
@@ -134,5 +96,6 @@
         }
 
     </script>
-
+    
 @endsection
+

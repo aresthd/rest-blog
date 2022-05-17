@@ -36,7 +36,7 @@
                         {{-- Melakukan input search --}}
                         <label class="input-group-text" for="searchBar"><span data-feather="search" ></span></label>
                         <input type="text" class="form-control" placeholder="Search..." name="search"  value="{{ request('search') }}" id="searchBar">
-                        <button class="btn btn-secondary" type="submit" >Button</button>
+                        <button class="btn btn-secondary" type="submit" >Search</button>
                     </div>
                 </form>
             </div>
