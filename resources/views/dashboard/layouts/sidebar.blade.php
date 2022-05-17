@@ -3,24 +3,24 @@
         <ul class="nav flex-column">
             <li class="nav-item">
                 {{-- Apabila ada request url dasboard maka tambahkan class active --}}
-                <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" aria-current="page" href="/dashboard">       
+                <a class="nav-link {{ Request::is('dashboard') ? 'link-dark' : 'link-secondary' }}" aria-current="page" href="/dashboard">       
                     <span data-feather="home"></span>
-                    Dashboard
+                    <span class="{{ Request::is('dashboard') ? 'link-dark' : 'link-secondary' }}">Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
                 {{-- Apabila ada request url dasboard maka tambahkan class active --}}
-                <a class="nav-link" href="/posts#categories">       
+                <a class="nav-link link-secondary" href="/posts#categories">       
                     <span data-feather="file-text"></span>
-                    All Posts
+                    <span class="link-secondary">All Posts</span>
                 </a>
             </li>
             <li class="nav-item">
                 {{-- Link untuk mengarahkan url ke route /dashboard/posts --}}
                 {{-- Apabila ada request url dashboard/posts/... maka tambahkan class active --}}
-                <a class="nav-link {{ Request::is('dashboard/posts*') ? 'active' : '' }}" href="/dashboard/posts">
+                <a class="nav-link {{ Request::is('dashboard/posts*') ? 'link-dark' : 'link-secondary' }}" href="/dashboard/posts">
                     <span data-feather="file-text"></span>
-                    My Posts
+                    <span class="{{ Request::is('dashboard/posts*') ? 'link-dark' : 'link-secondary' }}">My Post</span>
                 </a>
             </li>
         </ul>
@@ -35,9 +35,9 @@
                 <li class="nav-item">
                     {{-- Link untuk mengarahkan url ke route /dashboard/categories --}}
                     {{-- Apabila ada request url dashboard/categories/... maka tambahkan class active --}}
-                    <a class="nav-link {{ Request::is('dashboard/categories*') ? 'active' : '' }}" href="/dashboard/categories">
+                    <a class="nav-link {{ Request::is('dashboard/categories*') ? 'link-dark' : 'link-secondary' }}" href="/dashboard/categories">
                         <span data-feather="grid"></span>
-                        Post Categories
+                        <span class="{{ Request::is('dashboard/categories*') ? 'link-dark' : 'link-secondary' }}">Post Categories</span>
                     </a>
                 </li>
             </ul>

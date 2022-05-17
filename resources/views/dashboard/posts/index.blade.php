@@ -17,8 +17,8 @@
     
     <div class="table-responsive col-lg-8">
         {{-- Tombol untuk menambah data post --}}
-        <a href="/dashboard/posts/create" class="btn btn-primary mb-3">Create new post</a>
-        <table class="table table-striped table-sm">
+        <a href="/dashboard/posts/create" class="btn btn-dark m-1">Create new post</a>
+        <table class="table table-striped table-sm mt-3">
           <thead>
                 <tr>
                     <th scope="col">#</th>
