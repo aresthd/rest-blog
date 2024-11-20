@@ -52,15 +52,10 @@ return array(
     'Opis\\Closure\\' => array($vendorDir . '/opis/closure/src'),
     'NunoMaduro\\Collision\\' => array($vendorDir . '/nunomaduro/collision/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
+
     'Mockery\\' => array($vendorDir . '/mockery/mockery/library/Mockery'),
     'Livewire\\' => array($vendorDir . '/livewire/livewire/src'),
->>>>>>> Stashed changes
-=======
-    'Livewire\\' => array($vendorDir . '/livewire/livewire/src'),
->>>>>>> staging
+    
     'League\\MimeTypeDetection\\' => array($vendorDir . '/league/mime-type-detection/src'),
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
     'League\\Config\\' => array($vendorDir . '/league/config/src'),

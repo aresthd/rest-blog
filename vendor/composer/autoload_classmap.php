@@ -2699,9 +2699,7 @@ return array(
     'League\\MimeTypeDetection\\GeneratedExtensionToMimeTypeMap' => $vendorDir . '/league/mime-type-detection/src/GeneratedExtensionToMimeTypeMap.php',
     'League\\MimeTypeDetection\\MimeTypeDetector' => $vendorDir . '/league/mime-type-detection/src/MimeTypeDetector.php',
     'League\\MimeTypeDetection\\OverridingExtensionToMimeTypeMap' => $vendorDir . '/league/mime-type-detection/src/OverridingExtensionToMimeTypeMap.php',
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
+
     'Livewire\\Castable' => $vendorDir . '/livewire/livewire/src/Castable.php',
     'Livewire\\Commands\\ComponentParser' => $vendorDir . '/livewire/livewire/src/Commands/ComponentParser.php',
     'Livewire\\Commands\\ComponentParserFromExistingComponent' => $vendorDir . '/livewire/livewire/src/Commands/ComponentParserFromExistingComponent.php',
@@ -2816,9 +2814,8 @@ return array(
     'Livewire\\Wireable' => $vendorDir . '/livewire/livewire/src/Wireable.php',
     'Livewire\\WithFileUploads' => $vendorDir . '/livewire/livewire/src/WithFileUploads.php',
     'Livewire\\WithPagination' => $vendorDir . '/livewire/livewire/src/WithPagination.php',
->>>>>>> staging
     'Mockery' => $vendorDir . '/mockery/mockery/library/Mockery.php',
-=======
+
     'Livewire\\Castable' => $vendorDir . '/livewire/livewire/src/Castable.php',
     'Livewire\\Commands\\ComponentParser' => $vendorDir . '/livewire/livewire/src/Commands/ComponentParser.php',
     'Livewire\\Commands\\ComponentParserFromExistingComponent' => $vendorDir . '/livewire/livewire/src/Commands/ComponentParserFromExistingComponent.php',
@@ -2933,7 +2930,7 @@ return array(
     'Livewire\\Wireable' => $vendorDir . '/livewire/livewire/src/Wireable.php',
     'Livewire\\WithFileUploads' => $vendorDir . '/livewire/livewire/src/WithFileUploads.php',
     'Livewire\\WithPagination' => $vendorDir . '/livewire/livewire/src/WithPagination.php',
->>>>>>> Stashed changes
+
     'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
     'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegrationAssertPostConditions' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegrationAssertPostConditions.php',
     'Mockery\\Adapter\\Phpunit\\MockeryTestCase' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCase.php',
