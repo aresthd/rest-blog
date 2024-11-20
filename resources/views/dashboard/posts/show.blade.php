@@ -11,10 +11,10 @@
                 <h1 class="mb-3">{{ $post->title }}</h1>
                 
                 {{-- Tombol untuk melihat semua posts yang mengakses url dashboard/posts --}}
-                <a href="/dashboard/posts" class="btn btn-success"><span data-feather="arrow-left"></span> Back to all my posts</a>
+                <a href="/dashboard/posts" class="btn btn-outline-dark"><span data-feather="arrow-left"></span> Back to all my posts</a>
                 
                 {{-- Tombol untuk mengedit data post yg datanya akan dikirim ke controller DashboardPostController.php dan mengirim slug lewat url  --}}
-                <a href="/dashboard/posts/{{ $post->slug }}/edit" class="btn btn-warning"><span data-feather="edit"></span> Edit</a>
+                <a href="/dashboard/posts/{{ $post->slug }}/edit" class="btn btn-outline-dark"><span data-feather="edit"></span> Edit</a>
                 
                 {{-- Form untuk menghapus post yg datanya akan dikirim ke controller DashboardPostController.php --}}
                 <form action="/dashboard/posts/{{ $post->slug }}" method="post" class="d-inline">
@@ -23,7 +23,7 @@
                     {{-- Mengirimkan token csrf agar tidak dibajak --}}
                     @csrf
                     {{-- Tombol untuk menghapus post --}}
-                    <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><span data-feather="x-circle"></span> Delete</button>
+                    <button class="btn btn-dark" onclick="return confirm('Are you sure?')"><span data-feather="x-circle"></span> Delete</button>
                 </form>
                 
                 {{-- Apabila ada gambar di table post --}}

@@ -5,11 +5,15 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
+<<<<<<< HEAD
 <<<<<<< Updated upstream
         'reference' => 'e793a073806ec259e57cc3e8c019afa04faa149b',
 =======
         'reference' => 'd95de54e396030c9eb812ed59ceab228f48a5596',
 >>>>>>> Stashed changes
+=======
+        'reference' => '7fe774bcb9193384862c8aac0cda0a048f446128',
+>>>>>>> staging
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -440,11 +444,15 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
+<<<<<<< HEAD
 <<<<<<< Updated upstream
             'reference' => 'e793a073806ec259e57cc3e8c019afa04faa149b',
 =======
             'reference' => 'd95de54e396030c9eb812ed59ceab228f48a5596',
 >>>>>>> Stashed changes
+=======
+            'reference' => '7fe774bcb9193384862c8aac0cda0a048f446128',
+>>>>>>> staging
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -519,6 +527,7 @@
             'reference' => 'ce0f4d1e8a6f4eb0ddff33f57c69c50fd09f4301',
             'dev_requirement' => false,
         ),
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
         'livewire/livewire' => array(
@@ -531,6 +540,17 @@
             'dev_requirement' => false,
         ),
 >>>>>>> Stashed changes
+=======
+        'livewire/livewire' => array(
+            'pretty_version' => 'v2.10.5',
+            'version' => '2.10.5.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../livewire/livewire',
+            'aliases' => array(),
+            'reference' => '9ea6237760f627b3b6a05d15137880780ac843b5',
+            'dev_requirement' => false,
+        ),
+>>>>>>> staging
         'mockery/mockery' => array(
             'pretty_version' => '1.6.10',
             'version' => '1.6.10.0',

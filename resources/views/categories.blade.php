@@ -4,13 +4,12 @@
 {{-- Mengisi halaman parent untuk section container --}}
 @section('container')    
    
-    <h1 class="mb-5">Post Categories :</h1>
+    <h1 class="mb-5">Categories</h1>
 
     <div class="container">
         <div class="row">
-            {{-- Melakukan looping untuk setiap category yg diterima dari route web --}}
             @foreach ($categories as $category)
-                <div class="col-md-4">
+                <div class="col-md-4 mb-4">
                     {{-- Mengirim slug dari suatu category melalui url --}}
                     <a href="/posts?category={{ $category->slug }}">
                         <div class="card bg-dark text-white">
