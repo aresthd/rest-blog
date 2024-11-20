@@ -39,7 +39,7 @@ Follow these steps to set up the project locally:
 1. Clone this repository to your local directory:
 
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/AcilRestu12/rest-blog.git
     cd rest-blog
     ```
 
@@ -98,3 +98,7 @@ Follow these steps to set up the project locally:
 
 ## Contribution
 Contributions are welcome! If you’d like to contribute, please fork this repository and submit a pull request.
+
+
+## License
+The project is licensed under the MIT license - see the [LICENSE](LICENSE) file for more details.
