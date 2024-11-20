@@ -1,3 +1,65 @@
+5.2
+
+- added new security protection - running Clockwork is now restricted to local domains unless explicitly enabled
+- added Redis storage implementation (implemented by christopherh0rn, thanks!)
+- added support for collecting tests with Pest 2 and PHPUnit 10 (reported by CadenP, idea by kdevan, thanks!)
+- added support for all Twig versions in the Twig profiler integration (idea by ericktucto, thanks!)
+- improved collecting of notifications in Laravel to support latest version of laravel/slack-notification-channel (implemented by maximepvrt, thanks!)
+- improved Laravel installation process to be able to use "clockwork" tag for publishing the config file
+- improved default Laravel config to ignore Telescope Toolbar requests by default (implemented by lloricode, thanks!)
+- improved Eloquent data source to support Crate PDO (implemented by JulianMar, thanks!)
+- improved Slim integration to support retrieving latest requests in the rest api (implemented by UlrichEckhardt, thanks!)
+- fixed compatibility with Laravel <5.5 when collecting database queries (reported by sbahr001, thanks!)
+- fixed compatibility with Laravel 5.6 when client-metrics or toolbar is enabled (reported by Smolinsky, thanks!)
+- fixed checking of notification type when collecting Laravel notifications (reported by faraweilyas, idea by jameshulse, thanks!)
+- fixed collecting of Slack notifications content in Laravel (implemented by maximepvrt, thanks!)
+- fixed collecting of Laravel cache expiration times (implemented by FeBe95, thanks!)
+- fixed ability to use custom should-collect and should-record callbacks (implemented by thattomperson, thanks!)
+- fixed a possible crash with SQL storage when creating backup table or inserting duplicate ids (reported by davidp-celtra, thanks!)
+- fixed an exception being thrown when Clockwork metadata path is not writable even when Clockwork was disabled (reported by joelharkes, thanks!)
+- fixed an issue with file storage causing some non-http requests might not be shown in the app (reported by mattvb91, thanks!)
+- fixed compatibility with using Filebeat to collect Clockwork metadata (implemented by JConseil, thanks!)
+- fixed Request::addModelAction method not storing the action properly (reported by UlrichEckhardt, thanks!)
+
+*BREAKING*
+
+- Running Clockwork is now restricted to local domains - localhost, local, test, wip and 127.0.0.1 - unless explicitly enabled.
+  If you want to use Clockwork on a different domain, please explicitly enable it by setting CLOCKWORK_ENABLE to true. 
+
+5.1.12
+
+- improved Timeline event run method to stop the event in case of an exception (implemented by UlrichEckhardt, thanks!)
+- fixed some deprecation warnings on PHP 8.2 (implemented by faytekin, thanks!)
+- fixed some deprecation warnings on PHP 8.1 (implemented by villermen, thanks!)
+
+5.1.11
+
+- fixed crash when resolving authenticated user in Laravel without using Eloquent (reported by m-thalmann-athesia, thanks!)
+
+5.1.10
+
+- fixed crash when resolving authenticated user in Laravel (reported by LucaRed, thanks!)
+
+5.1.9
+
+- added support for Eloquent strict mode (reported by Sergiobop, thanks!)
+
+5.1.8
+
+- updated list of built-in Laravel commands to ignore when collecting commands and included Horizon commands
+- fixed collecting of Laravel queue jobs when used with Horizon
+- fixed collecting of authanticated user name when the User model includes name() method (implemented by devfrey, thanks!)
+
+5.1.7
+
+- added support for authentiaction in the Vanilla integration
+- added support for compressed Xdebug profiles
+- improved collecting of Laravel Artisan commands to support abbreviated commands (implemented by mike-peters90, thanks!)
+- fixed doubled backslashes in collected Laravel database query bindings (reported by pys1992, thanks!)
+- fixed compatibility with PostgreSQL in SQL storage (implemented by screw, thanks!)
+- fixed possible crash during file storage cleanup when used with Laravel Octane (reported by flexchar, thanks!)
+- fixed infinite loop when collecting queries in Doctrine 3.x (reported by N-M, thanks!)
+
 5.1.6
 
 - added Monolog 2.x compatible handler (idea by mahagr, thanks!)

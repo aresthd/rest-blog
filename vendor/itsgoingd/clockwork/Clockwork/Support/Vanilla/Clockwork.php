@@ -1,6 +1,8 @@
 <?php namespace Clockwork\Support\Vanilla;
 
 use Clockwork\Clockwork as BaseClockwork;
+use Clockwork\Authentication\NullAuthenticator;
+use Clockwork\Authentication\SimpleAuthenticator;
 use Clockwork\DataSource\PhpDataSource;
 use Clockwork\DataSource\PsrMessageDataSource;
 use Clockwork\Helpers\Serializer;
@@ -8,6 +10,7 @@ use Clockwork\Helpers\ServerTiming;
 use Clockwork\Helpers\StackFilter;
 use Clockwork\Request\IncomingRequest;
 use Clockwork\Storage\FileStorage;
+use Clockwork\Storage\RedisStorage;
 use Clockwork\Storage\Search;
 use Clockwork\Storage\SqlStorage;
 
@@ -41,6 +44,7 @@ class Clockwork
 
 		$this->clockwork->addDataSource(new PhpDataSource);
 		$this->clockwork->storage($this->makeStorage());
+		$this->clockwork->authenticator($this->makeAuthenticator());
 
 		$this->configureSerializer();
 		$this->configureShouldCollect();
@@ -153,7 +157,10 @@ class Clockwork
 	// Handle Clockwork REST api request, retrieves or updates Clockwork metadata
 	public function handleMetadata($request = null, $method = null)
 	{
+		if (! $request) $request = isset($_GET['request']) ? $_GET['request'] : '';
 		if (! $method) $method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
+
+		if ($method == 'POST' && $request == 'auth') return $this->authenticate();
 
 		return $method == 'POST' ? $this->updateMetadata($request) : $this->returnMetadata($request);
 	}
@@ -161,7 +168,14 @@ class Clockwork
 	// Retrieve metadata based on the passed Clockwork REST api request and send HTTP response
 	public function returnMetadata($request = null)
 	{
-		if (! $this->config['enable']) return;
+		if (! $this->config['enable']) return $this->response(null, 404);
+
+		$authenticator = $this->clockwork->authenticator();
+		$authenticated = $authenticator->check(isset($_SERVER['HTTP_X_CLOCKWORK_AUTH']) ? $_SERVER['HTTP_X_CLOCKWORK_AUTH'] : '');
+
+		if ($authenticated !== true) {
+			return $this->response([ 'message' => $authenticated, 'requires' => $authenticator->requires() ], 403);
+		}
 
 		return $this->response($this->getMetadata($request));
 	}
@@ -169,7 +183,12 @@ class Clockwork
 	// Returns metadata based on the passed Clockwork REST api request
 	public function getMetadata($request = null)
 	{
-		if (! $this->config['enable']) return $this->response(null, 404);
+		if (! $this->config['enable']) return;
+
+		$authenticator = $this->clockwork->authenticator();
+		$authenticated = $authenticator->check(isset($_SERVER['HTTP_X_CLOCKWORK_AUTH']) ? $_SERVER['HTTP_X_CLOCKWORK_AUTH'] : '');
+
+		if ($authenticated !== true) return;
 
 		if (! $request) $request = isset($_GET['request']) ? $_GET['request'] : '';
 
@@ -236,6 +255,21 @@ class Clockwork
 		return $this->response();
 	}
 
+	// Authanticates access to Clockwork REST api
+	public function authenticate($request = null)
+	{
+		if (! $this->config['enable']) return;
+
+		if (! $request) $request = isset($_GET['request']) ? $_GET['request'] : '';
+
+		$token = $this->clockwork->authenticator()->attempt([
+			'username' => isset($_POST['username']) ? $_POST['username'] : '',
+			'password' => isset($_POST['password']) ? $_POST['password'] : ''
+		]);
+
+		return $this->response([ 'token' => $token ], $token ? 200 : 403);
+	}
+
 	// Returns the Clockwork Web UI as a HTTP response, installs the Web UI on the first run
 	public function returnWeb()
 	{
@@ -298,16 +332,21 @@ class Clockwork
 	// Make a storage implementation based on user configuration
 	protected function makeStorage()
 	{
-		if ($this->config['storage'] == 'sql') {
-			$database = $this->config['storage_sql_database'];
-			$table = $this->config['storage_sql_table'];
+		$storage = $this->config['storage'];
 
+		if ($storage == 'sql') {
 			$storage = new SqlStorage(
 				$this->config['storage_sql_database'],
 				$this->config['storage_sql_table'],
 				$this->config['storage_sql_username'],
 				$this->config['storage_sql_password'],
 				$this->config['storage_expiration']
+			);
+		} elseif ($storage == 'redis') {
+			$storage = new RedisStorage(
+				$this->config['storage_redis'],
+				$this->config['storage_expiration'],
+				$this->config['storage_redis_prefix']
 			);
 		} else {
 			$storage = new FileStorage(
@@ -319,6 +358,20 @@ class Clockwork
 		}
 
 		return $storage;
+	}
+
+	// Make an authenticator implementation based on user configuration
+	protected function makeAuthenticator()
+	{
+		$authenticator = $this->config['authentication'];
+
+		if (is_string($authenticator)) {
+			return new $authenticator;
+		} elseif ($authenticator) {
+			return new SimpleAuthenticator($this->config['authentication_password']);
+		} else {
+			return new NullAuthenticator;
+		}
 	}
 
 	// Configure serializer defaults based on user configuration

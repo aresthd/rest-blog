@@ -11,6 +11,7 @@ use Clockwork\Helpers\StackTrace;
 use Clockwork\Request\IncomingRequest;
 use Clockwork\Request\Request;
 use Clockwork\Storage\FileStorage;
+use Clockwork\Storage\RedisStorage;
 use Clockwork\Storage\Search;
 use Clockwork\Storage\SqlStorage;
 use Clockwork\Web\Web;
@@ -29,6 +30,9 @@ class ClockworkSupport
 {
 	// Laravel application instance
 	protected $app;
+
+	// Laravel artisan (console application) instance
+	protected $artisan;
 
 	// Incoming request instance
 	protected $incomingRequest;
@@ -204,6 +208,15 @@ class ClockworkSupport
 		return $this->app['clockwork.laravel'];
 	}
 
+	public function handleArtisanEvents()
+	{
+		if (class_exists(\Illuminate\Console\Events\ArtisanStarting::class)) {
+			$this->app['events']->listen(\Illuminate\Console\Events\ArtisanStarting::class, function ($event) {
+				$this->artisan = $event->artisan;
+			});
+		}
+	}
+
 	public function handleOctaneEvents()
 	{
 		$this->app['events']->listen(\Laravel\Octane\Events\RequestReceived::class, function ($event) {
@@ -221,9 +234,10 @@ class ClockworkSupport
 	// Make a storage instance based on the current configuration
 	public function makeStorage()
 	{
+		$storage = $this->getConfig('storage', 'files');
 		$expiration = $this->getConfig('storage_expiration');
 
-		if ($this->getConfig('storage', 'files') == 'sql') {
+		if ($storage == 'sql') {
 			$database = $this->getConfig('storage_sql_database', storage_path('clockwork.sqlite'));
 			$table = $this->getConfig('storage_sql_table', 'clockwork');
 
@@ -234,6 +248,10 @@ class ClockworkSupport
 			}
 
 			return new SqlStorage($database, $table, null, null, $expiration);
+		} elseif ($storage == 'redis') {
+			$connection = $this->app['redis']->connection($this->getConfig('storage_redis'))->client();
+
+			return new RedisStorage($connection, $expiration, $this->getConfig('storage_redis_prefix', 'clockwork'));
 		} else {
 			return new FileStorage(
 				$this->getConfig('storage_files_path', storage_path('clockwork')),
@@ -281,7 +299,7 @@ class ClockworkSupport
 
 			if (! $event->command || $this->isCommandFiltered($event->command)) return;
 
-			$command = $this->app->make(ConsoleKernel::class)->all()[$event->command];
+			$command = $this->artisan->find($event->command);
 
 			$allArguments = $event->input->getArguments();
 			$allOptions = $event->input->getOptions();
@@ -423,7 +441,7 @@ class ClockworkSupport
 			];
 
 			$response->cookie(
-				new Cookie('x-clockwork', json_encode($clockworkBrowser), time() + 60, null, null, null, false)
+				new Cookie('x-clockwork', json_encode($clockworkBrowser), time() + 60, null, null, $request->secure(), false)
 			);
 		}
 
@@ -506,7 +524,8 @@ class ClockworkSupport
 	public function isEnabled()
 	{
 		return $this->getConfig('enable')
-			|| $this->getConfig('enable') === null && $this->app['config']->get('app.debug');
+			|| $this->getConfig('enable') === null && $this->app['config']->get('app.debug')
+				&& ($this->incomingRequest()->hasLocalHost() || $this->app->runningInConsole());
 	}
 
 	// Check whether we are collecting data
@@ -655,7 +674,8 @@ class ClockworkSupport
 			'method'  => $this->app['request']->getMethod(),
 			'uri'     => $this->app['request']->getRequestUri(),
 			'input'   => $this->app['request']->input(),
-			'cookies' => $this->app['request']->cookie()
+			'cookies' => $this->app['request']->cookie(),
+			'host'    => method_exists($this->app['request'], 'host') ? $this->app['request']->host() : $this->app['request']->getHost()
 		]);
 	}
 
@@ -673,31 +693,40 @@ class ClockworkSupport
 	protected function builtinLaravelCommands()
 	{
 		return [
-			'clear-compiled', 'down', 'dump-server', 'env', 'help', 'list', 'migrate', 'optimize', 'preset', 'serve',
-			'tinker', 'up',
+			'clear-compiled', 'completion', 'db', 'down', 'dump-server', 'env', 'help', 'list', 'migrate', 'optimize',
+			'preset', 'serve', 'test', 'tinker', 'up',
 			'app:name',
 			'auth:clear-resets',
 			'cache:clear', 'cache:forget', 'cache:table',
 			'config:cache', 'config:clear',
-			'db:seed',
+			'db:seed', 'db:wipe',
 			'event:cache', 'event:clear', 'event:generate', 'event:list',
+			'horizon', 'horizon:clear', 'horizon:continue', 'horizon:continue-supervisor', 'horizon:forget',
+			'horizon:install', 'horizon:list', 'horizon:pause', 'horizon:pause-supervisor', 'horizon:publish',
+			'horizon:purge', 'horizon:snapshot', 'horizon:status', 'horizon:supervisors', 'horizon:terminate',
+			'horizon:work',
 			'key:generate',
-			'make:auth', 'make:channel', 'make:command', 'make:controller', 'make:event', 'make:exception',
-			'make:factory', 'make:job', 'make:listener', 'make:mail', 'make:middleware', 'make:migration', 'make:model',
-			'make:notification', 'make:observer', 'make:policy', 'make:provider', 'make:request', 'make:resource',
-			'make:rule', 'make:seeder', 'make:test',
+			'make:auth', 'make:cast', 'make:channel', 'make:command', 'make:component', 'make:controller', 'make:event',
+			'make:exception', 'make:factory', 'make:job', 'make:listener', 'make:mail', 'make:middleware',
+			'make:migration', 'make:model', 'make:notification', 'make:observer', 'make:policy', 'make:provider',
+			'make:request', 'make:resource', 'make:rule', 'make:scope', 'make:seeder', 'make:test',
 			'migrate:fresh', 'migrate:install', 'migrate:refresh', 'migrate:reset', 'migrate:rollback',
 			'migrate:status',
+			'model:prune',
 			'notifications:table',
 			'octane:install', 'octane:reload', 'octane:start', 'octane:status', 'octane:stop',
 			'optimize:clear',
 			'package:discover',
-			'queue:failed', 'queue:failed-table', 'queue:flush', 'queue:forget', 'queue:listen', 'queue:restart',
-			'queue:retry', 'queue:table', 'queue:work',
+			'queue:batches-table', 'queue:clear', 'queue:failed', 'queue:failed-table', 'queue:flush', 'queue:forget',
+			'queue:listen', 'queue:monitor', 'queue:prune-batches', 'queue:prune-failed', 'queue:restart',
+			'queue:retry', 'queue:retry-batch', 'queue:table', 'queue:work',
 			'route:cache', 'route:clear', 'route:list',
-			'schedule:run',
+			'sail:install', 'sail:publish',
+			'schedule:clear-cache', 'schedule:list', 'schedule:run', 'schedule:test', 'schedule:work',
+			'schema:dump',
 			'session:table',
 			'storage:link',
+			'stub:publish',
 			'vendor:publish',
 			'view:cache', 'view:clear'
 		];

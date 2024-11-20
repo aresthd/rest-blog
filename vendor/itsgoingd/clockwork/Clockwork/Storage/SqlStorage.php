@@ -117,7 +117,7 @@ class SqlStorage extends Storage
 	public function all(Search $search = null)
 	{
 		$fields = implode(', ', array_map(function ($field) { return $this->quote($field); }, array_keys($this->fields)));
-		$search = SqlSearch::fromBase($search);
+		$search = SqlSearch::fromBase($search, $this->pdo);
 		$result = $this->query("SELECT {$fields} FROM {$this->table} {$search->query}", $search->bindings);
 
 		return $this->resultsToRequests($result);
@@ -137,7 +137,7 @@ class SqlStorage extends Storage
 	public function latest(Search $search = null)
 	{
 		$fields = implode(', ', array_map(function ($field) { return $this->quote($field); }, array_keys($this->fields)));
-		$search = SqlSearch::fromBase($search);
+		$search = SqlSearch::fromBase($search, $this->pdo);
 		$result = $this->query(
 			"SELECT {$fields} FROM {$this->table} {$search->query} ORDER BY id DESC LIMIT 1", $search->bindings
 		);
@@ -152,7 +152,7 @@ class SqlStorage extends Storage
 		$count = (int) $count;
 
 		$fields = implode(', ', array_map(function ($field) { return $this->quote($field); }, array_keys($this->fields)));
-		$search = SqlSearch::fromBase($search)->addCondition('id < :id', [ 'id' => $id ]);
+		$search = SqlSearch::fromBase($search, $this->pdo)->addCondition('id < :id', [ 'id' => $id ]);
 		$limit = $count ? "LIMIT {$count}" : '';
 		$result = $this->query(
 			"SELECT {$fields} FROM {$this->table} {$search->query} ORDER BY id DESC {$limit}", $search->bindings
@@ -167,7 +167,7 @@ class SqlStorage extends Storage
 		$count = (int) $count;
 
 		$fields = implode(', ', array_map(function ($field) { return $this->quote($field); }, array_keys($this->fields)));
-		$search = SqlSearch::fromBase($search)->addCondition('id > :id', [ 'id' => $id ]);
+		$search = SqlSearch::fromBase($search, $this->pdo)->addCondition('id > :id', [ 'id' => $id ]);
 		$limit = $count ? "LIMIT {$count}" : '';
 		$result = $this->query(
 			"SELECT {$fields} FROM {$this->table} {$search->query} ORDER BY id ASC {$limit}", $search->bindings
@@ -227,6 +227,10 @@ class SqlStorage extends Storage
 			$table = $this->quote($this->table);
 			$backupTableName = $this->quote("{$this->table}_backup_" . date('Ymd'));
 			$this->pdo->exec("ALTER TABLE {$table} RENAME TO {$backupTableName};");
+
+			$indexName = $this->quote("{$this->table}_time_index");
+			$this->pdo->exec("DROP INDEX {$indexName};"); // most sql implementations use global index names
+			$this->pdo->exec("DROP INDEX {$indexName} ON {$backupTableName};"); // mysql uses table-specific index names
 		} catch (\PDOException $e) {
 			// this just means the table doesn't yet exist, nothing to do here
 		}
@@ -260,7 +264,7 @@ class SqlStorage extends Storage
 				throw new \PDOException;
 			}
 		} catch (\PDOException $e) {
-			$stmt = false;
+			$stmt = strpos($e->getMessage(), 'Integrity constraint violation') !== false;
 		}
 
 		// the query failed to execute, assume it's caused by missing or old schema, try to reinitialize database
