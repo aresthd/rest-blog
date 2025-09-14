@@ -39,7 +39,7 @@ Follow these steps to set up the project locally:
 1. Clone this repository to your local directory:
 
     ```bash
-    git clone https://github.com/AcilRestu12/rest-blog.git
+    git clone https://github.com/aresthd/rest-blog.git
     cd rest-blog
     ```
 
